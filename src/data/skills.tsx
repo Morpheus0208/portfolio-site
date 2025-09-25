@@ -46,5 +46,5 @@ export const skills: Skill[] = [
   { name: 'ESLint', icon: <SiEslint color="#4B32C3" />, category: 'Qualité' },
   { name: 'Prettier', icon: <SiPrettier color="#F7B93E" />, category: 'Qualité' },
 
-  { name: 'ChatGPT / OpenAI', icon: <SiOpenai color="#412991" />, category: 'IA' },
+  { name: 'ChatGPT', icon: <SiOpenai color="#412991" />, category: 'IA' },
 ];

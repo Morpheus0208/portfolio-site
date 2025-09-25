@@ -1,9 +1,36 @@
+import { useCallback, useRef, useState } from 'react';
 import { MdOutlineEmail } from 'react-icons/md';
 import { SiGithub, SiLinkedin } from 'react-icons/si';
 
 export default function ContactBlock() {
+  const EMAIL = 'morpheus0208code@gmail.com';
+  const [copied, setCopied] = useState(false);
+  const liveRef = useRef<HTMLSpanElement | null>(null);
+
+  const copyEmail = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+
+      if (liveRef.current) {
+        liveRef.current.textContent = 'Adresse email copiée dans le presse-papiers';
+      }
+
+      setTimeout(() => {
+        setCopied(false);
+        if (liveRef.current) liveRef.current.textContent = '';
+      }, 2000);
+    } catch {
+      if (liveRef.current) {
+        liveRef.current.textContent = "Impossible de copier l'adresse email";
+      }
+    }
+  }, []);
+
   return (
     <div className="mx-auto max-w-4xl space-y-8">
+      <span ref={liveRef} className="sr-only" aria-live="polite" aria-atomic="true"></span>
+
       <div className="flex justify-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1 text-sm font-medium text-emerald-700 ring-1 ring-emerald-600/20">
           <span className="h-2 w-2 rounded-full bg-emerald-600" />
@@ -18,19 +45,28 @@ export default function ContactBlock() {
             <h3 className="text-lg font-semibold text-slate-800">Email direct</h3>
           </div>
           <p className="mt-2 text-sm text-slate-600">Réponse rapide, message personnalisé.</p>
-          <div className="mt-4 flex gap-3">
+          <div className="mt-4 flex items-center gap-3">
             <a
-              href="mailto:morpheus0208code@gmail.com"
+              href={`mailto:${EMAIL}`}
               className="bg-brand-600 hover:bg-brand-700 rounded-lg px-4 py-2 text-sm font-medium text-white"
             >
               Écrire un email
             </a>
             <button
-              onClick={() => navigator.clipboard.writeText('morpheus0208code@gmail.com')}
+              onClick={copyEmail}
               className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
             >
               Copier l’adresse
             </button>
+            {copied && (
+              <span
+                className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-600/20"
+                role="status"
+                aria-live="polite"
+              >
+                Copié ✓
+              </span>
+            )}
           </div>
         </div>
 

@@ -15,7 +15,7 @@ function CategoryBlock({ category }: { category: Category }) {
   return (
     <div className="flex flex-col">
       <h3 className="mb-4 text-base font-semibold text-slate-800">{category}</h3>
-      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((s) => (
           <SkillCard key={s.name} icon={s.icon} label={s.name} size="sm" />
         ))}
@@ -24,9 +24,15 @@ function CategoryBlock({ category }: { category: Category }) {
   );
 }
 
-export default function SkillsSection({ slide = false }: { slide?: boolean }) {
+export default function SkillsSection({
+  slide = false,
+  full = true,
+}: {
+  slide?: boolean;
+  full?: boolean;
+}) {
   return (
-    <Section id="competences" bg="bg-brand-50" slide={slide} className="py-8 sm:py-10">
+    <Section id="competences" bg="bg-brand-50" slide={slide} full={full} className="py-8 sm:py-10">
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-brand-600 text-xs font-semibold tracking-[0.22em] uppercase">
           Compétences
@@ -38,9 +44,9 @@ export default function SkillsSection({ slide = false }: { slide?: boolean }) {
         </p>
       </div>
 
-      <div className="mx-auto mt-8 max-w-6xl space-y-8">
+      <div className="mx-auto mt-6 max-w-6xl space-y-6">
         {ROWS.map(([left, right]) => (
-          <div key={`${left}-${right}`} className="grid items-stretch gap-8 lg:grid-cols-2">
+          <div key={`${left}-${right}`} className="grid items-start gap-6 lg:grid-cols-2">
             <CategoryBlock category={left} />
             <CategoryBlock category={right} />
           </div>
