@@ -17,10 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./portfolio # ← sous-dossier du projet
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,10 +26,16 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: ./portfolio/package-lock.json
 
-      - name: Install
-        run: npm ci
+      - name: Install deps (ci if lockfile, else install)
+        run: |
+          if [ -f package-lock.json ]; then
+            echo "🔐 package-lock.json found → npm ci"
+            npm ci
+          else
+            echo "ℹ️ No lockfile → npm install"
+            npm install
+          fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -48,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./portfolio/dist # ← artefact depuis le sous-dossier
+          path: ./dist
 
   deploy:
     needs: build
@@ -57,4 +59,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        # Pas besoin d'`environment:` → cette action attache d'elle-même au env "github-pages".
