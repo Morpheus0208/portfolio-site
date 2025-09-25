@@ -27,7 +27,7 @@ export default function Section({
         bg,
         py,
         'scroll-mt-16',
-        full && 'lg:min-h-[calc(100vh-4rem)] lg:snap-start',
+        full && 'md:min-h-[calc(100vh-4rem)] md:snap-start',
         slide && 'snap-start lg:min-h-[calc(100vh-4rem)]',
         className
       )}
