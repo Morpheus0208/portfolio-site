@@ -13,13 +13,13 @@ const ROWS: [Category, Category][] = [
 function CategoryBlock({ category }: { category: Category }) {
   const list = skills.filter((s) => s.category === category);
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col">
       <h3 className="mb-4 text-base font-semibold text-slate-800">{category}</h3>
-      <div className="grid auto-rows-fr grid-cols-1 gap-3 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {list.map((s) => (
           <SkillCard key={s.name} icon={s.icon} label={s.name} size="sm" />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

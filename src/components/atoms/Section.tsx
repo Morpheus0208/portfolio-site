@@ -28,7 +28,7 @@ export default function Section({
         py,
         'scroll-mt-16',
         full && 'lg:min-h-[calc(100vh-4rem)] lg:snap-start',
-        slide && 'flex min-h-[calc(100vh-4rem)] snap-start items-center',
+        slide && 'snap-start lg:min-h-[calc(100vh-4rem)]',
         className
       )}
     >
