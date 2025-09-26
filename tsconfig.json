@@ -21,7 +21,8 @@
       "@organisms/*": ["src/components/organisms/*"],
       "@templates/*": ["src/components/templates/*"],
       "@data/*": ["src/data/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["src", "vite.config.ts"]
